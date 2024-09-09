@@ -1,6 +1,48 @@
 {% extends "myapp/base.html" %}
 {% block body %}
-<h1> this index page </h1>
+<div class="flex">
+
+    {% for item in items %}
+    <div class=" items shadow-lg w-1/4 rounded-lg m-10 ">
+
+        <div class="item-image ">
+            <img class=" h-auto w-full object-cover" src="{{item.image.url}}" alt="">
+
+        </div>
+        <div class="p-5">
+            <divc class="font-bold">
+                {{item.name}}
+    
+            </divc>
+            <div>
+                {{item.description}}
+    
+            </div>
+            <div class="text-green-700 font-bold">
+                ${{item.price}}
+    
+            </div>
+            <div class="mt-5">
+                <a class=" bg-green-500 text-white px-4 py-2" href="">Add to cart</a>
+            </div>
+
+        </div>
+       
+       
+
+    </div>
+
+
+
+
+
+
+
+
+{% endfor %}
+
+</div>
+
 
 {% endblock body %}
 
