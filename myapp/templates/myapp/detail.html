@@ -1,0 +1,61 @@
+{% extends "myapp/base.html" %}
+
+{% block body %}
+<div class="max-w-7xl mx-auto p-6 pt-20">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+        <!-- Item Image -->
+        <div class="rounded-lg overflow-hidden shadow-lg">
+            <img src="{{ item.image.url }}" alt="{{ item.name }}" class="w-full h-96 object-cover">
+        </div>
+
+        <!-- Item Details -->
+        <div>
+            <!-- Item Name -->
+            <h1 class="text-4xl font-bold text-gray-800 mb-4">{{ item.name }}</h1>
+
+            <!-- Item Price -->
+            <p class="text-2xl text-green-600 font-semibold mb-6">${{ item.price }}</p>
+
+            <!-- Item Description -->
+            <p class="text-gray-700 mb-6">{{ item.description }}</p>
+
+            <!-- Add to Cart Button -->
+            <div class="flex items-center space-x-4">
+                <a href="#" class="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition duration-200">
+                    Add to Cart
+                </a>
+                <span class="text-sm text-gray-500">Available Stock: {{ item.stock }}</span>
+            </div>
+
+            <!-- Categories or Tags (Optional) -->
+            {% if item.category %}
+            <div class="mt-6">
+                <span class="text-sm font-semibold text-gray-700">Category: </span>
+                <a href="{% url 'category_items' item.category.id %}" class="text-green-500 hover:underline">{{ item.category.name }}</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<!-- Related Items Section (Optional) -->
+{% if related_items %}
+<div class="max-w-7xl mx-auto p-6">
+    <h2 class="text-3xl font-bold text-gray-800 mb-4">Related Items</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {% for related_item in related_items %}
+        <div class="border rounded-lg overflow-hidden shadow-lg">
+            <a href="{% url 'item_detail' related_item.id %}">
+                <img src="{{ related_item.image.url }}" alt="{{ related_item.name }}" class="w-full h-48 object-cover">
+            </a>
+            <div class="p-4">
+                <h3 class="text-lg font-bold text-gray-800">{{ related_item.name }}</h3>
+                <p class="text-green-600 font-bold">${{ related_item.price }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+{% endblock %}
