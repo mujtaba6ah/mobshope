@@ -1,0 +1,132 @@
+{% extends "myapp/base.html" %}
+{% load static %}
+{% block body %}
+<div class="container mx-auto my-8 p-4 bg-gray-100 rounded-lg shadow-lg">
+    <h1 class="text-2xl font-semibold mb-6 text-center">Cart Summary</h1>
+    
+    {% if cart_items %}
+        {% for item in cart_items %}
+        <div class="flex items-center justify-between bg-white p-4 mb-4 rounded-lg shadow">
+            <div class="flex items-center">
+                <img src="{{ item.image.url }}" alt="{{ item.name }}" class="w-16 h-16 rounded mr-4">
+                <div>
+                    <h2 class="text-lg font-semibold">{{ item.name }}</h2>
+                    <p class="text-gray-500">Price: ${{ item.price }}</p>
+                    <p class="text-gray-500">Quantity:
+                        <select name="" id="qty-cart" class=" text-gray-600">
+                            
+                                {% for key, value  in quantities.items  %}
+                                    {% if key == item.id|slugify %}
+                                <option selected> {{value}}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+
+ 
+                        </p>
+
+
+                    </select>
+                    <div class="flex justify-between items-center mt-6 ">
+                        <button  type="button" data-index="{{item.id}}" class="  bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700"  id="updat-cart" > 
+                            Update
+                         </button>
+                         <button type="button" data-index="{{item.id}}" class="  bg-gray-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 m-5"  id="delete-item"> 
+                            Remove
+                         </button>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <p class="text-xl font-bold text-gray-800"> ${{ item.price|floatformat:2 }}</p>
+            </div>
+        </div>
+        {% endfor %}
+        <div class="flex items-center justify-between bg-white p-4 mb-4 rounded-lg shadow">
+            <h1 class=" text-gray-600 font-bold text-2xl m-10">Total :</h1>
+            <h1 class="text-xl font-black ">${{totals}}</h1>
+        </div>
+        <br>
+       
+       
+        
+        <div class="flex justify-between items-center mt-6">
+            <a href="#" class="text-indigo-600 hover:text-indigo-800 font-semibold">Continue Shopping</a>
+            <a href="#" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700">Proceed to Checkout</a>
+        </div>
+    {% else %}
+        <h1 class="text-center text-gray-600 text-lg">Your cart is empty</h1>
+        <div class="flex justify-center mt-6">
+            <a href="#" class="text-indigo-600 hover:text-indigo-800 font-semibold">Continue Shopping</a>
+        </div>
+    {% endif %}
+</div>
+
+<script>
+    // Update item
+    $(document).on('click', '#update-cart', function(e){
+        e.preventDefault();
+    
+        // Get item ID from the data-index attribute of the button
+        //var itemid = $(this).data('index');
+    
+        // Get selected quantity for the corresponding item
+        var item_qty = $('select[data-index="' + itemid + '"]').val();
+    
+        $.ajax({
+            type: 'POST',
+            url: '{% url 'cart_update' %}',
+            data: {
+                item_id: $(this).data('index'),  // Pass item ID
+                item_qty: $('select' + itemid +'option:selected').text(),  // Pass selected quantity
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                action: 'post'
+            },
+            success: function(json) {
+                // Reload the page or update cart quantity dynamically
+                location.reload();
+            },
+            error: function(xhr, errmsg, err) {
+                console.log(xhr.status + ": " + xhr.responseText);
+            }
+        });
+    });
+
+
+    //delete-item
+    $(document).on('click', '#delete-item', function(e){
+        e.preventDefault();
+    
+        // Get item ID from the data-index attribute of the button
+        var itemid = $(this).data('index');
+    
+        // Get selected quantity for the corresponding item
+        var item_qty = $('select[data-index="' + itemid + '"]').val();
+    
+        $.ajax({
+            type: 'POST',
+            url: '{% url 'cart_delete' %}',
+            data: {
+                item_id: $(this).data('index'),  // Pass item ID
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                action: 'post'
+            },
+            success: function(json) {
+                // Reload the page or update cart quantity dynamically
+                location.reload();
+            },
+            error: function(xhr, errmsg, err) {
+                console.log(xhr.status + ": " + xhr.responseText);
+            }
+        });
+    });
+</script>
+{% endblock body %}

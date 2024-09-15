@@ -6,42 +6,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'myapp/styles.css' %}">
     <title>{% block title %}Trado{% endblock title %}</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" 
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" 
+    crossorigin="anonymous"></script>
 </head>
 <body class="bg-gray-100 text-gray-800">
-
+ 
     <!-- Navbar -->
     <nav class="bg-white shadow-lg">
-        <div class="flex justify-between items-center max-w-7xl mx-auto px-4 py-4">
+        <div class="flex flex-wrap justify-between items-center max-w-7xl mx-auto px-4 py-4">
             <!-- Logo -->
-            <a href="/" class="flex items-center">
-                <img src="{% static 'myapp/images/logo3.png' %}" alt="Logo" class="h-12 w-auto m-5">
-                <span class=" text-2xl font-semibold text-gray-700">Trado</span>
+            <a href="/" class="flex items-center mb-4 lg:mb-0">
+                <img src="{% static 'myapp/images/logo11.png' %}" alt="Logo" class="h-10 w-auto">
+                <span class="ml-4 text-lg text-gray-700">Online Store</span>
             </a>
 
             <!-- Search Bar -->
-<div class="flex items-center justify-center mt-4">
-    <form action="" method="GET" class="flex w-full max-w-md mx-auto">
-        {% csrf_token %}
-        <input type="search" name="item_name" placeholder="Search items..." 
-            class="w-full px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent">
-        <button type="submit" 
-            class="px-4 py-2 bg-green-500 text-white rounded-r-md hover:bg-green-600 transition duration-200">
-            Search
-        </button>
-    </form>
-</div>
+            <div class="w-full lg:w-auto flex-grow flex items-center justify-center mb-4 lg:mb-0">
+                <form action="" method="GET" class="flex w-full max-w-md">
+                    {% csrf_token %}
+                    <input type="search" name="item_name" placeholder="Search items..." 
+                        class="w-full px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                    <button type="submit" 
+                        class="px-4 py-2 bg-green-500 text-white rounded-r-md hover:bg-green-600 transition duration-200">
+                        Search
+                    </button>
+                </form>
+            </div>
 
-            <!-- Cart Link -->
-            <div class="">
-                <a href="/cart" class="text-xl font-semibold text-gray-600 hover:text-gray-900 transition m-5">
-                    Cart
+            <!-- Cart, Products, and Home Links -->
+            <div class="flex items-center space-x-4">
+                <a href="{% url 'cart_summary' %}" class="flex items-center space-x-2  p-2 rounded-md ">
+                    <img src="{% static 'myapp/images/cart.png' %}" class="h-8" alt="Cart Image">
+                    <span class="text-lg text-gray-600  p-1 rounded-md">Cart</span>
+                    <span class="bg-green-500 text-white rounded px-2 py-1">{{ cart|length }}</span>
                 </a>
-                <a href="http://127.0.0.1:8000/" class="text-xl font-semibold text-gray-600 hover:text-gray-900 transition m-5">
-                    Products
-                </a>
-                <a href="http://127.0.0.1:8000/" class="text-xl font-semibold text-gray-600 hover:text-gray-900 transition m-5">
-                    Home
-                </a>
+
+                <a href="http://127.0.0.1:8000/" class="text-lg text-gray-600 hover:text-gray-900 transition">Products</a>
+                <a href="http://127.0.0.1:8000/" class="text-lg text-gray-600 hover:text-gray-900 transition">Home</a>
             </div>
         </div>
     </nav>
@@ -55,15 +57,14 @@
     <!-- Footer -->
     <footer class="bg-gray-800 text-white py-6 mt-10">
         <div class="max-w-7xl mx-auto px-4">
-            <div class="flex justify-between items-center">
+            <div class="flex justify-between items-center flex-col lg:flex-row">
                 <p>&copy; 2024 Trado. All Rights Reserved.</p>
-                <div class="space-x-4">
+                <div class="mt-4 lg:mt-0 space-x-4">
                     <a href="#" class="hover:underline">Privacy Policy</a>
                     <a href="#" class="hover:underline">Terms of Service</a>
                 </div>
             </div>
         </div>
     </footer>
-
 </body>
 </html>
