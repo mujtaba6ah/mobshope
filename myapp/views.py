@@ -25,3 +25,8 @@ def detail(request,id):
     item = Item.objects.get(id=id)
 
     return render(request,'myapp/detail.html',{'item':item})
+
+def category_items(request, id):
+    category = Category.objects.get(id=id)
+    items = Item.objects.filter(category=category)
+    return render(request, 'myapp/category_items.html', {'category': category, 'items': items})
