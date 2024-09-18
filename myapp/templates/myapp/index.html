@@ -3,30 +3,39 @@
 <div class="flex flex-wrap justify-center">
 
     {% for item in items %}
-    <!-- Responsive card: spans full width on mobile, half width on medium screens, and a quarter on large screens -->
-    <div class="shadow-lg w-full sm:w-1/2 md:w-1/3 lg:w-1/4 rounded-lg m-5 bg-white hover:shadow-xl transition duration-300 ease-in-out transform hover:-translate-y-1">
-
+        {% if item.is_sale %}
+       
+                <!-- Responsive card: spans full width on mobile, half width on medium screens, and a quarter on large screens -->
+            <div class=" w-full sm:w-1/2 md:w-1/3 lg:w-1/4 rounded-lg m-5 bg-white hover:shadow-xl transition duration-300 ease-in-out transform hover:-translate-y-1">
+                
         <!-- Image Section -->
-        <div class="item-image">
-            <img class="h-autu w-full object-cover rounded-t-lg" src="{{item.image.url}}" alt="{{item.name}}">
-        </div>
+                <div class="item-image">
+                    <img class="h-autu w-full object-cover rounded-t-lg" src="{{item.image.url}}" alt="{{item.name}}">
+                      <!-- Badge -->
+  <span class="absolute top-0 right-0 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded m-5">SALE !</span>
+                 </div>
 
         <!-- Item Details Section -->
-        <div class="p-5">
+                <div class="p-5">
             <!-- Item Name -->
-            <div class="font-bold text-lg text-gray-800 m-auto">
-                {{item.name}}
-            </div>
+                    <div class="font-bold text-lg text-gray-800 m-auto">
+                         {{item.name}}
+                </div>
 
             <!-- Item Description -->
-            <div class="text-gray-600 m-auto">
-                {{item.description}}
-            </div>
+                <div class="text-gray-600 m-auto">
+                     {{item.description}}
+                </div>
 
             <!-- Item Price -->
-            <div class="text-green-700 font-bold text-xl m-auto">
-                ${{item.price}}
-            </div>
+                <div class="text-green-700 font-bold text-xl m-auto flex">
+
+                    <strike>
+                        ${{item.price}}
+                    </strike>
+                    &nbsp;
+                    ${{item.sale_price}}
+                 </div>
 
             <!-- Add to Cart Button -->
             <div class="mt-4">
@@ -35,7 +44,48 @@
                 </a>
             </div>
         </div>
-    </div>
+            </div>
+             
+        {% else %}
+
+                <!-- Responsive card: spans full width on mobile, half width on medium screens, and a quarter on large screens -->
+                <div class=" w-full sm:w-1/2 md:w-1/3 lg:w-1/4 rounded-lg m-5 bg-white hover:shadow-xl transition duration-300 ease-in-out transform hover:-translate-y-1">
+                
+                    <!-- Image Section -->
+                            <div class="item-image">
+                                <img class="h-autu w-full object-cover rounded-t-lg" src="{{item.image.url}}" alt="{{item.name}}">
+                             </div>
+            
+                    <!-- Item Details Section -->
+                            <div class="p-5">
+                        <!-- Item Name -->
+                                <div class="font-bold text-lg text-gray-800 m-auto">
+                                     {{item.name}}
+                            </div>
+            
+                        <!-- Item Description -->
+                            <div class="text-gray-600 m-auto">
+                                 {{item.description}}
+                            </div>
+            
+                        <!-- Item Price -->
+                            <div class="text-green-700 font-bold text-xl m-auto flex">
+            
+                            
+                                    ${{item.price}}
+                               
+                             </div>
+            
+                        <!-- Add to Cart Button -->
+                        <div class="mt-4">
+                            <a class="  bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-300" href="{% url "detail" item.id %}">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                        </div>
+                         
+        {% endif %}
     {% endfor %}
 
 </div>

@@ -18,6 +18,10 @@ class Item(models.Model):
     price = models.FloatField()
     date = models.DateField(auto_now=True)
     image = models.ImageField(upload_to="item_images/")
+    # add sale 
+    is_sale = models.BooleanField(default= False)
+    sale_price = models.FloatField(default=0)
+
     
 
     def __str__(self):

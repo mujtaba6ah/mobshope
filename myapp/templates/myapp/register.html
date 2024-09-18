@@ -1,0 +1,78 @@
+{% extends "myapp/base.html" %}
+{% load static %}
+{% block body %}
+
+<form action="{% url 'register' %}" method="POST">
+  {% csrf_token %}
+  <div class="relative py-3 sm:max-w-xs sm:mx-auto">
+    <div class="min-h-96 px-8 py-6 mt-4 text-left bg-white dark:bg-gray-900 rounded-xl shadow-lg">
+      <div class="flex flex-col justify-center items-center h-full select-none">
+        <div class="flex flex-col items-center justify-center gap-2 mb-8">
+          <div class="w-8 h-8">
+            <img src="{% static 'myapp/images/user.png' %}" alt="User Icon">
+          </div>
+          <p class="m-0 text-[16px] font-semibold dark:text-white">Create Your Account</p>
+          <span class="m-0 text-xs max-w-[90%] text-center text-[#8B8E98]">
+            Please fill in the details below to create an account.
+          </span>
+        </div>
+        <div class="w-full flex flex-col gap-2">
+            <label class="font-semibold text-xs text-gray-400">First name</label>
+            <input name="first_name" type="text"
+              placeholder="First name"
+              class="border rounded-lg px-3 py-2 mb-5 text-sm w-full outline-none dark:border-gray-500 dark:bg-gray-900"
+            />
+        </div>
+          <div class="w-full flex flex-col gap-2">
+            <label class="font-semibold text-xs text-gray-400">Last name</label>
+            <input name="last_name" type="text"
+              placeholder="Lastname"
+              class="border rounded-lg px-3 py-2 mb-5 text-sm w-full outline-none dark:border-gray-500 dark:bg-gray-900"
+            />
+          </div>
+
+        <div class="w-full flex flex-col gap-2">
+          <label class="font-semibold text-xs text-gray-400">Username</label>
+          <input name="username" type="text"
+            placeholder="Username"
+            class="border rounded-lg px-3 py-2 mb-5 text-sm w-full outline-none dark:border-gray-500 dark:bg-gray-900"
+          />
+        </div>
+
+        <div class="w-full flex flex-col gap-2">
+          <label class="font-semibold text-xs text-gray-400">Email</label>
+          <input name="email" type="email"
+            placeholder="Email"
+            class="border rounded-lg px-3 py-2 mb-5 text-sm w-full outline-none dark:border-gray-500 dark:bg-gray-900"
+          />
+        </div>
+
+        <div class="w-full flex flex-col gap-2">
+          <label class="font-semibold text-xs text-gray-400">Password</label>
+          <input name="password1" type="password"
+            placeholder="••••••••"
+            class="border rounded-lg px-3 py-2 mb-5 text-sm w-full outline-none dark:border-gray-500 dark:bg-gray-900"
+          />
+        </div>
+
+        <div class="w-full flex flex-col gap-2">
+          <label class="font-semibold text-xs text-gray-400">Confirm Password</label>
+          <input name="password2" type="password"
+            placeholder="••••••••"
+            class="border rounded-lg px-3 py-2 mb-5 text-sm w-full outline-none dark:border-gray-500 dark:bg-gray-900"
+          />
+        </div>
+
+        <div>
+          <button
+            class="py-1 px-8 bg-green-500 hover:bg-green-700 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg cursor-pointer select-none"
+          >
+            Register
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+{% endblock body %}

@@ -56,7 +56,7 @@ class Cart():
          
     def delete(self, item):
         item_id = str(item)
-     # Delelte from dictionary cart
+     # Delete from dictionary cart
         if item_id in self.cart:
             del self.cart[item_id]
 

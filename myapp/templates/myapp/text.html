@@ -1,0 +1,18 @@
+form = SignUpForm()
+if request.method == "POST":
+    form = SignUpForm(request.POST)
+    if form.is_valid():
+        form.save()
+        username = form.cleaned_data['username']
+        password  = form.cleaned_data['password1']
+        # Log in the user
+        user = authenticate(username=username, password=password)
+        login(request, user)
+        messages.success(request, ("You have Registered Successfully. "))
+        return redirect('index')
+    else:
+        messages.success(request, (" Whoops! There aws a problem Registering. "))
+        return redirect('register')
+     
+else:
+    return render(request,'myapp/register.html',{})
